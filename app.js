@@ -33,7 +33,7 @@ const questions = [
   {
     type: "input",
     name: "github",
-    message: "What is the employee's github url?",
+    message: "What is the employee's github username?",
     category: "engineer",
   },
   {
@@ -85,35 +85,114 @@ const employees = [];
 
 function init() {
   managerPrompt();
-}
 
-async function managerPrompt() {
-  const managerQuestions = questions.filter(function (question) {
-    return question.category === "manager";
-  });
-  const response = await inquirer.prompt(managerQuestions);
-  // console.log(managerQuestions);
-  if (
-    response.managerName === "" ||
-    response.managerEmail === "" ||
-    response.managerOfficeNumber === "" ||
-    response.managerId === ""
-  ) {
-    throw new Error("Please enter a valid input");
+  async function managerPrompt() {
+    try {
+      const managerQuestions = questions.filter(function (question) {
+        return question.category === "manager";
+      });
+      const response = await inquirer.prompt(managerQuestions);
+      // console.log(managerQuestions);
+      if (
+        response.managerName === "" ||
+        response.managerEmail === "" ||
+        response.officeNumber === "" ||
+        response.managerId === ""
+      ) {
+        throw new Error("Please enter a valid input");
+      }
+      const manager = new Manager(
+        response.managerName,
+        response.managerId,
+        response.managerEmail,
+        response.officeNumber
+      );
+
+      employees.push(manager);
+
+      if (response.numberOfEngineers > 0) {
+        await engineerPrompt(response.numberOfEngineers);
+      }
+      // console.log(response.numberOfEngineers);
+      if (response.numberOfInterns > 0) {
+        await internPrompt(response.numberOfInterns);
+      }
+      const html = render(employees);
+      fs.writeFile(outputPath, html, function (err) {
+        if (err) throw err;
+      });
+    } catch (err) {
+      throw err;
+    }
   }
-  const manager = new Manager(
-    response.managerName,
-    response.managerId,
-    response.managerEmail,
-    response.managerOfficeNumber
-  );
 
-  employees.push(manager);
-  const html = render(employees);
-  fs.writeFile(outputPath, html, function (err) {
-    if (err) throw err;
-  });
+  async function engineerPrompt(numberOfEngineers) {
+    try {
+      const engineerQuestions = questions.filter(function (question) {
+        //need to include employee questions
+        return (
+          question.category === "employee" || question.category === "engineer"
+        );
+      });
+      // console.log(engineerQuestions);
+      for (let i = 0; i < numberOfEngineers; i++) {
+        const response = await inquirer.prompt(engineerQuestions);
+        if (
+          response.name === "" ||
+          response.id === "" ||
+          response.email === "" ||
+          response.github === ""
+        ) {
+          throw new Error("Please enter a valid input");
+        }
+        const engineer = new Engineer(
+          response.name,
+          response.id,
+          response.email,
+          response.github
+        );
+        employees.push(engineer);
+      }
+      console.log(employees);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async function internPrompt(numberOfInterns) {
+    try {
+      const internQuestions = questions.filter(function (question) {
+        //need to include employee questions
+        return (
+          question.category === "intern" || question.category === "employee"
+        );
+      });
+      // console.log(internQuestions);
+      for (let i = 0; i < numberOfInterns; i++) {
+        const response = await inquirer.prompt(internQuestions);
+        if (
+          response.name === "" ||
+          response.id === "" ||
+          response.email === "" ||
+          response.school === ""
+        ) {
+          throw new Error("Please enter a valid input");
+        }
+        const intern = new Intern(
+          response.name,
+          response.id,
+          response.email,
+          response.school
+        );
+        employees.push(intern);
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
-async function 
 init();
+
+//TODO
+//get rid of commas on html, style html
