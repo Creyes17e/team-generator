@@ -1,4 +1,4 @@
-# Good README.md -- [![License](https://img.shields.io/badge/license-None-green.svg)](https://shields.io/)
+# Team Generator -- [![License](https://img.shields.io/badge/license-None-green.svg)](https://shields.io/)
 
 # Live Site
 
