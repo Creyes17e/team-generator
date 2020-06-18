@@ -10,26 +10,110 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//Questions
+const questions = [
+  {
+    type: "input",
+    name: "name",
+    message: "What is the employee's name?",
+    category: "employee",
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What is the employee's ID?",
+    category: "employee",
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What is the employee's email?",
+    category: "employee",
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "What is the employee's github url?",
+    category: "engineer",
+  },
+  {
+    type: "input",
+    name: "school",
+    message: "What is the employee's school?",
+    category: "intern",
+  },
+  {
+    type: "input",
+    name: "officeNumber",
+    message: "What is your office number?",
+    category: "manager",
+  },
+  {
+    type: "input",
+    name: "managerName",
+    message: "What is your name?",
+    category: "manager",
+  },
+  {
+    type: "input",
+    name: "managerId",
+    message: "What is your employee ID?",
+    category: "manager",
+  },
+  {
+    type: "input",
+    name: "managerEmail",
+    message: "What is your email?",
+    category: "manager",
+  },
+  {
+    type: "input",
+    name: "numberOfInterns",
+    message: "How many interns do you have in your team?",
+    category: "manager",
+  },
+  {
+    type: "input",
+    name: "numberOfEngineers",
+    message: "How many engineers do you have in your team?",
+    category: "manager",
+  },
+];
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+//Employess
+const employees = [];
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+function init() {
+  managerPrompt();
+}
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+async function managerPrompt() {
+  const managerQuestions = questions.filter(function (question) {
+    return question.category === "manager";
+  });
+  const response = await inquirer.prompt(managerQuestions);
+  // console.log(managerQuestions);
+  if (
+    response.managerName === "" ||
+    response.managerEmail === "" ||
+    response.managerOfficeNumber === "" ||
+    response.managerId === ""
+  ) {
+    throw new Error("Please enter a valid input");
+  }
+  const manager = new Manager(
+    response.managerName,
+    response.managerId,
+    response.managerEmail,
+    response.managerOfficeNumber
+  );
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
+  employees.push(manager);
+  const html = render(employees);
+  fs.writeFile(outputPath, html, function (err) {
+    if (err) throw err;
+  });
+}
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+async function 
+init();
