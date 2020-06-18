@@ -1,0 +1,15 @@
+.jumbotron {
+  background-color: salmon;
+}
+.employee-card {
+  margin: 2rem 2rem;
+}
+.card-header {
+  background-color: rgb(67, 46, 255);
+}
+.card-body {
+  background-color: lightslategrey;
+}
+.card-title {
+  color: whitesmoke;
+}
