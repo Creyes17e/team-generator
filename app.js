@@ -16,81 +16,83 @@ const questions = [
     type: "input",
     name: "name",
     message: "What is the employee's name?",
-    category: "employee",
+    role: "employee",
   },
   {
     type: "input",
     name: "id",
     message: "What is the employee's ID?",
-    category: "employee",
+    role: "employee",
   },
   {
     type: "input",
     name: "email",
     message: "What is the employee's email?",
-    category: "employee",
+    role: "employee",
   },
   {
     type: "input",
     name: "github",
     message: "What is the employee's github username?",
-    category: "engineer",
+    role: "engineer",
   },
   {
     type: "input",
     name: "school",
     message: "What is the employee's school?",
-    category: "intern",
+    role: "intern",
   },
   {
     type: "input",
     name: "officeNumber",
     message: "What is your office number?",
-    category: "manager",
+    role: "manager",
   },
   {
     type: "input",
     name: "managerName",
     message: "What is your name?",
-    category: "manager",
+    role: "manager",
   },
   {
     type: "input",
     name: "managerId",
     message: "What is your employee ID?",
-    category: "manager",
+    role: "manager",
   },
   {
     type: "input",
     name: "managerEmail",
     message: "What is your email?",
-    category: "manager",
+    role: "manager",
   },
   {
     type: "input",
     name: "numberOfInterns",
     message: "How many interns do you have in your team?",
-    category: "manager",
+    role: "manager",
   },
   {
     type: "input",
     name: "numberOfEngineers",
     message: "How many engineers do you have in your team?",
-    category: "manager",
+    role: "manager",
   },
 ];
 
 //Employess
 const employees = [];
-
+//Function that begins app
 function init() {
   managerPrompt();
 
   async function managerPrompt() {
     try {
+      //Filters questions with role "manager"
       const managerQuestions = questions.filter(function (question) {
-        return question.category === "manager";
+        return question.role === "manager";
       });
+      //Prompts Managers Q's
       const response = await inquirer.prompt(managerQuestions);
       // console.log(managerQuestions);
       if (
@@ -109,14 +111,16 @@ function init() {
       );
 
       employees.push(manager);
-
+      //Prompts Engineers Q's depends on the number of engineeers from user response
       if (response.numberOfEngineers > 0) {
         await engineerPrompt(response.numberOfEngineers);
       }
       // console.log(response.numberOfEngineers);
+      //Prompts Intern's Q's depends on the number of engineeers from user response
       if (response.numberOfInterns > 0) {
         await internPrompt(response.numberOfInterns);
       }
+      //Renders the employees on to html based on the user's response
       const html = render(employees);
       fs.writeFile(outputPath, html, function (err) {
         if (err) throw err;
@@ -128,13 +132,10 @@ function init() {
 
   async function engineerPrompt(numberOfEngineers) {
     try {
+      //Filters questions with role "employee" && "manager"
       const engineerQuestions = questions.filter(function (question) {
-        //need to include employee questions
-        return (
-          question.category === "employee" || question.category === "engineer"
-        );
+        return question.role === "employee" || question.role === "engineer";
       });
-      // console.log(engineerQuestions);
       for (let i = 0; i < numberOfEngineers; i++) {
         const response = await inquirer.prompt(engineerQuestions);
         if (
@@ -161,13 +162,10 @@ function init() {
 
   async function internPrompt(numberOfInterns) {
     try {
+      //Filters questions with role "employee" && "intern"
       const internQuestions = questions.filter(function (question) {
-        //need to include employee questions
-        return (
-          question.category === "intern" || question.category === "employee"
-        );
+        return question.role === "employee" || question.role === "intern";
       });
-      // console.log(internQuestions);
       for (let i = 0; i < numberOfInterns; i++) {
         const response = await inquirer.prompt(internQuestions);
         if (
@@ -192,7 +190,5 @@ function init() {
   }
 }
 
+//Calls function init()
 init();
-
-//TODO
-//get rid of commas on html, style html
