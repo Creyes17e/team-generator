@@ -1,8 +1,20 @@
+body {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 auto;
+  background-color: whitesmoke;
+}
+h2 {
+  font-size: 25px;
+}
+h3 {
+  font-size: 18px;
+}
 .jumbotron {
   background-color: salmon;
 }
 .employee-card {
-  margin: 2rem 2rem;
+  margin: 1rem 1rem;
 }
 .card-header {
   background-color: rgb(67, 46, 255);
@@ -12,4 +24,11 @@
 }
 .card-title {
   color: whitesmoke;
+}
+.team-area {
+  background-color: rgb(192, 191, 190);
+}
+
+.card-header:hover {
+  background-color: rgba(214, 112, 101, 0.699);
 }
