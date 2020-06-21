@@ -16,67 +16,67 @@ const questions = [
     type: "input",
     name: "name",
     message: "What is the employee's name?",
-    role: "employee",
+    role: "Employee",
   },
   {
     type: "input",
     name: "id",
     message: "What is the employee's ID?",
-    role: "employee",
+    role: "Employee",
   },
   {
     type: "input",
     name: "email",
     message: "What is the employee's email?",
-    role: "employee",
+    role: "Employee",
   },
   {
     type: "input",
     name: "github",
     message: "What is the employee's github username?",
-    role: "engineer",
+    role: "Engineer",
   },
   {
     type: "input",
     name: "school",
     message: "What is the employee's school?",
-    role: "intern",
+    role: "Intern",
   },
   {
     type: "input",
     name: "officeNumber",
     message: "What is your office number?",
-    role: "manager",
+    role: "Manager",
   },
   {
     type: "input",
     name: "managerName",
     message: "What is your name?",
-    role: "manager",
+    role: "Manager",
   },
   {
     type: "input",
     name: "managerId",
     message: "What is your employee ID?",
-    role: "manager",
+    role: "Manager",
   },
   {
     type: "input",
     name: "managerEmail",
     message: "What is your email?",
-    role: "manager",
+    role: "Manager",
   },
   {
     type: "input",
     name: "numberOfInterns",
     message: "How many interns do you have in your team?",
-    role: "manager",
+    role: "Manager",
   },
   {
     type: "input",
     name: "numberOfEngineers",
     message: "How many engineers do you have in your team?",
-    role: "manager",
+    role: "Manager",
   },
 ];
 
@@ -90,7 +90,7 @@ function init() {
     try {
       //Filters questions with role "manager"
       const managerQuestions = questions.filter(function (question) {
-        return question.role === "manager";
+        return question.role === "Manager";
       });
       //Prompts Managers Q's
       const response = await inquirer.prompt(managerQuestions);
@@ -134,7 +134,7 @@ function init() {
     try {
       //Filters questions with role "employee" && "manager"
       const engineerQuestions = questions.filter(function (question) {
-        return question.role === "employee" || question.role === "engineer";
+        return question.role === "Employee" || question.role === "Engineer";
       });
       for (let i = 0; i < numberOfEngineers; i++) {
         const response = await inquirer.prompt(engineerQuestions);
@@ -164,7 +164,7 @@ function init() {
     try {
       //Filters questions with role "employee" && "intern"
       const internQuestions = questions.filter(function (question) {
-        return question.role === "employee" || question.role === "intern";
+        return question.role === "Employee" || question.role === "Intern";
       });
       for (let i = 0; i < numberOfInterns; i++) {
         const response = await inquirer.prompt(internQuestions);
