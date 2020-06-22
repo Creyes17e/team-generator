@@ -29,13 +29,18 @@ You must clone the repo using the live site https in order for user to use on te
 
 ## Credits
 
-10-00P:Activity 24 Mini Project (Bootcamp), Google Fu, Instructor's videos.
+10-00P:Getting Started, 10-00P:Word Guessing Activity videos, Google Fu, YouTube, Instructor, TAs, bootcamp activities.
 
 ## License
 
 License:None
 
 ## Tests
+
+Employee.test.js
+Engineer.test.js
+Intern.test.js
+Manager.test.js
 
 ## Questions
 
@@ -44,6 +49,7 @@ If you have any questions my Github Link is https://github.com/Creyes17e or you 
 ## Video
 
 App Functionality
+https://drive.google.com/file/d/1UDkRVy7R3aAFWcYrVDkSVyxL-RLFQSVn/view
 
 ## Example
 

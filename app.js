@@ -94,7 +94,7 @@ function init() {
       });
       //Prompts Managers Q's
       const response = await inquirer.prompt(managerQuestions);
-      // console.log(managerQuestions);
+
       if (
         response.managerName === "" ||
         response.managerEmail === "" ||
@@ -111,20 +111,51 @@ function init() {
       );
 
       employees.push(manager);
-      //Prompts Engineers Q's depends on the number of engineeers from user response
-      if (response.numberOfEngineers > 0) {
-        await engineerPrompt(response.numberOfEngineers);
-      }
-      // console.log(response.numberOfEngineers);
+
       //Prompts Intern's Q's depends on the number of engineeers from user response
       if (response.numberOfInterns > 0) {
+        console.log("Please enter Interns information");
         await internPrompt(response.numberOfInterns);
+      }
+      //Prompts Engineers Q's depends on the number of engineeers from user response
+      if (response.numberOfEngineers > 0) {
+        console.log("Please enter Engineers information");
+        await engineerPrompt(response.numberOfEngineers);
       }
       //Renders the employees on to html based on the user's response
       const html = render(employees);
       fs.writeFile(outputPath, html, function (err) {
         if (err) throw err;
       });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async function internPrompt(numberOfInterns) {
+    try {
+      //Filters questions with role "employee" && "intern"
+      const internQuestions = questions.filter(function (question) {
+        return question.role === "Employee" || question.role === "Intern";
+      });
+      for (let i = 0; i < numberOfInterns; i++) {
+        const response = await inquirer.prompt(internQuestions);
+        if (
+          response.name === "" ||
+          response.id === "" ||
+          response.email === "" ||
+          response.school === ""
+        ) {
+          throw new Error("Please enter a valid input");
+        }
+        const intern = new Intern(
+          response.name,
+          response.id,
+          response.email,
+          response.school
+        );
+        employees.push(intern);
+      }
     } catch (err) {
       throw err;
     }
@@ -155,35 +186,6 @@ function init() {
         employees.push(engineer);
       }
       console.log(employees);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  async function internPrompt(numberOfInterns) {
-    try {
-      //Filters questions with role "employee" && "intern"
-      const internQuestions = questions.filter(function (question) {
-        return question.role === "Employee" || question.role === "Intern";
-      });
-      for (let i = 0; i < numberOfInterns; i++) {
-        const response = await inquirer.prompt(internQuestions);
-        if (
-          response.name === "" ||
-          response.id === "" ||
-          response.email === "" ||
-          response.school === ""
-        ) {
-          throw new Error("Please enter a valid input");
-        }
-        const intern = new Intern(
-          response.name,
-          response.id,
-          response.email,
-          response.school
-        );
-        employees.push(intern);
-      }
     } catch (err) {
       throw err;
     }

@@ -10,11 +10,12 @@ h2 {
 h3 {
   font-size: 18px;
 }
+
 .jumbotron {
   background-color: salmon;
 }
 .employee-card {
-  margin: 1rem 1rem;
+  margin: 1rem 0.2rem;
 }
 .card-header {
   background-color: rgb(67, 46, 255);
@@ -31,4 +32,10 @@ h3 {
 
 .card-header:hover {
   background-color: rgba(214, 112, 101, 0.699);
+}
+.card-columns {
+  width: 100%;
+  background-color: rgb(192, 191, 190);
+  padding: 2rem;
+  margin: 2rem 1rem;
 }
