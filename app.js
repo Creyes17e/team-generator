@@ -45,25 +45,25 @@ const questions = [
   {
     type: "input",
     name: "officeNumber",
-    message: "What is your office number?",
+    message: "What is your manager's office number?",
     role: "Manager",
   },
   {
     type: "input",
     name: "managerName",
-    message: "What is your name?",
+    message: "What is your manager's name?",
     role: "Manager",
   },
   {
     type: "input",
     name: "managerId",
-    message: "What is your employee ID?",
+    message: "What is your manager's employee ID?",
     role: "Manager",
   },
   {
     type: "input",
     name: "managerEmail",
-    message: "What is your email?",
+    message: "What is your manager's email?",
     role: "Manager",
   },
   {
