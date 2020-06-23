@@ -84,9 +84,9 @@ const questions = [
 const employees = [];
 //Function that begins app
 function init() {
-  managerPrompt();
+  promptsMngr();
 
-  async function managerPrompt() {
+  async function promptsMngr() {
     try {
       //Filters questions with role "manager"
       const managerQuestions = questions.filter(function (question) {
@@ -115,15 +115,15 @@ function init() {
       //Prompts Intern's Q's depends on the number of engineeers from user response
       if (response.numberOfInterns > 0) {
         console.log("Please enter Interns information");
-        await internPrompt(response.numberOfInterns);
+        await promptsIntrn(response.numberOfInterns);
       }
       //Prompts Engineers Q's depends on the number of engineeers from user response
       if (response.numberOfEngineers > 0) {
         console.log("Please enter Engineers information");
-        await engineerPrompt(response.numberOfEngineers);
+        await promptsEngnr(response.numberOfEngineers);
       }
       //Renders the employees on to html based on the user's response
-      const html = render(employees);
+      const renderedHtml = render(employees);
       fs.writeFile(outputPath, html, function (err) {
         if (err) throw err;
       });
@@ -132,7 +132,7 @@ function init() {
     }
   }
 
-  async function internPrompt(numberOfInterns) {
+  async function promptsIntrn(numberOfInterns) {
     try {
       //Filters questions with role "employee" && "intern"
       const internQuestions = questions.filter(function (question) {
@@ -161,7 +161,7 @@ function init() {
     }
   }
 
-  async function engineerPrompt(numberOfEngineers) {
+  async function promptsEngnr(numberOfEngineers) {
     try {
       //Filters questions with role "employee" && "manager"
       const engineerQuestions = questions.filter(function (question) {
@@ -192,5 +192,5 @@ function init() {
   }
 }
 
-//Calls function init()
+//Calls function init() which runs app
 init();
