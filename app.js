@@ -124,7 +124,7 @@ function init() {
       }
       //Renders the employees on to html based on the user's response
       const renderedHtml = render(employees);
-      fs.writeFile(outputPath, html, function (err) {
+      fs.writeFile(outputPath, renderedHtml, function (err) {
         if (err) throw err;
       });
     } catch (err) {
